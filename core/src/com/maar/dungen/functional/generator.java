@@ -70,16 +70,17 @@ public class generator {
 	public void connect(){
 		Vector2 shortest = new Vector2();
 		this.connections.clear();
-		float distance = 0;
+		float distance = 500;
 		float t = 0;
 		for(int i = 0; i < rooms.size(); i++){
 			if(i != rooms.size()-1)
 				shortest = rooms.get(i+1).getPosition();
-			distance = rooms.get(i).getPosition().dst(shortest);
+			distance = 1024;
 			for(int j = i+1; j < rooms.size(); j++){
+				t = rooms.get(i).getPosition().dst(rooms.get(j).getPosition());
 				if(rooms.get(i).connected(rooms.get(j)))
 					continue;
-				else if((t = rooms.get(i).getPosition().dst(rooms.get(j).getPosition())) < distance){
+				else if(t < distance){
 					shortest = rooms.get(j).getPosition();
 					distance = t;
 				}
@@ -89,9 +90,28 @@ public class generator {
 		for(int i = 0; i < rooms.size(); i ++){
 			allBlocks.addAll(rooms.get(i).getBlocks());
 		}
+		System.out.println(allBlocks.size());
 	}
 	private void createCorridors(){
-		
+		for(int i = 0; i < connections.size(); i++){
+			Vector2 s = connections.get(i).getStart();
+			Vector2 e = connections.get(i).getEnd();
+			float angle = (float)Math.atan2(s.y - e.y, s.x - e.x);
+			angle = (float) Math.toDegrees(angle) + 180;
+			
+			if(s.x > e.x){
+				//SHOULD MOVE LEFT
+			}
+			else if(s.x < e.x){
+				//SHOULD MOVE RIGHT
+			}
+			if(s.y > e.y){
+				//SHOULD MOVE DOWN
+			}
+			else if(s.y < e.y){
+				//SHOULD MOVE UP
+			}
+		}
 	}
 	public void decenter(){
 		int times = 0;
