@@ -45,6 +45,9 @@ public class block {
 			return true;
 		return false;
 	}
+	public Vector2 getPosition(){
+		return this.position;
+	}
 	public boolean connects(block with){
 		Rectangle a = self;
 		Rectangle b = with.getRectangle();
